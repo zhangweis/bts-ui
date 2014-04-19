@@ -30,41 +30,48 @@
 .receivedExchangePrice small {
   margin-left: 5px;
 }
+.list-item, .list-cell {
+    display:-webkit-box;
+}
+.transactions .address {
+    width: 20%;
+}
+.transactions .amount {
+    width: 20%;
+}
+.transactions .confirmations {
+    width: 20%;
+}
+.transactions .discovered-when {
+    width: 20%;
+}
+.link-effect:hover,
+.link-effect:active,
+.link-effect:focus {
+  background-color: #f6f6f6;
+cursor:pointer;
+}
+
 </style>
 
 <h2>Received</h2>
 
-
-<div class="visible-md visible-lg">
-  <table class="table table-bordered table-striped table-hover">
-    <thead>
-      <tr>
-        <th>Address</th>
-        <th>Amount</th>
-        <th>Confirmations</th>
-        <th>Discovered</th>
-        <th></th>
-    </tr></thead>
-    <tbody>
-      
-        <tr ng-repeat="tx in transactions">
-          <td>{{tx.address}}</td>
-          <td><span class="addExchangePrice">{{tx.amount}} {{tx.type}}</span></td>
-          <td>
-            {{tx.confirmations}}
-
-            
-              <span class="label label-warning pull-right" rel="tooltip" data-toggle="tooltip" title="" data-original-title="Transaction has not yet been confirmed. You cannot safely spend this yet because you cannot be confident it isn't a double spend until it has been confirmed by the blockchain.">Pending (Unconfirmed)</span>
-            
-          </td>
-          <td>
-            {{tx.discoveredWhen | timeago}}
-          </td>
-          <td><a class="btn btn-primary" href="#/tx/details/69d6835ffce3a63c12561d3512a2f6345a4a866d654f76b253cefabc0a633da9">Details</a></td>
-      
-        </tr>
-    </tbody>
-  </table>
+<div class="transactions">
+    <div ng-repeat="tx in transactions" class="list-item link-effect">
+        <div class="list-cell address visible-md visible-lg">
+            <span ng-bind="tx.address" class="ng-binding">Default</span>
+        </div>
+        <div class="list-cell amount">
+            <span ng-bind="tx.amount" class="ng-binding">0.1</span>
+            <span ng-bind="tx.type" class="ng-binding">XTS</span>
+        </div>
+        <div class="list-cell confirmations">
+            <span ng-bind="tx.confirmations" class="ng-binding">1</span>
+        </div>
+        <div class="list-cell discovered-when visible-md visible-lg">
+            <span ng-bind="tx.discoveredWhen | timeago" class="ng-binding">1</span>
+        </div>
+    </div>
 </div>
 
 </div>
