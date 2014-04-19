@@ -12,6 +12,9 @@ define(['angular', 'angular-route', 'moment/moment', 'transactions.js'], functio
           redirectTo: '/transactions'
         });
     });
+    app.controller("HeaderCtrl", ["$scope", function($scope) {
+        $scope.isBarOpen = false;
+    }]);
     app.filter('timeago', function(){
         return function(date){
             return moment(date).fromNow();
