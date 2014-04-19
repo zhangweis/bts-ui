@@ -4,9 +4,8 @@ require.config({
     baseUrl: "./bower_components/",    
     paths: {
         'angular': 'angular/angular',
-        'angularAMD': 'angularAMD/angularAMD',
         'angular-route': 'angular-route/angular-route',
-	'application':'../application'
+	    'application':'../application'
     },
     shim: {
         "angular": {
@@ -14,7 +13,7 @@ require.config({
         },
         "angular-route": {
             deps: ["angular"]
-        }
+         }
 	}
 });
 

@@ -2,17 +2,18 @@
 <!doctype html>
 <html ng-class='{"appmenu-opened":appmenuOpened}'>
 <head>
-    <link rel="stylesheet" type="text/css" charset='UTF-8' href="style.css" />
+<link rel="stylesheet" type="text/css" charset='UTF-8' href="style.css" />
 <link rel="stylesheet" type="text/css" charset='UTF-8' href="css/all.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title ng-bind='page.title'></title>
 <script data-main="main.js" src="bower_components/requirejs/require.js"></script>
 </head>
 <body ontouchstart='' onmouseover="">
+<div ng-click="toggleAppMenu()" class="app-menu-bg"></div>
 <div id="header" style="margin-bottom: 50px" ng-controller="HeaderCtrl">
     <header class="navbar navbar-inverse navbar-fixed-top" role="banner">
   <div class="navbar-header">
-    <button class="navbar-toggle" type="button" ng-click="isBarOpen = !isBarOpen">
+    <button class="navbar-toggle" type="button" ng-click="toggleAppMenu()">
       <span class="sr-only"></span>
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
@@ -20,7 +21,7 @@
     </button>
     <a href="#/" class="navbar-brand">Bitshares X</a>
   </div>
-  <nav ng-class="{false:'collapse navbar-collapse',true:'navbar-collapse'}[isBarOpen]" role="navigation" id="navbar-collapse">
+  <nav ng-class="{false:'collapse navbar-collapse',true:'navbar-collapse'}[appmenuOpened]" role="navigation" id="navbar-collapse" ng-click="toggleAppMenu()">
     <ul class="nav navbar-nav">
         <li><a href="#/transactions"> Transactions</a></li>
         <li><a href="#/send" > Send</a></li>

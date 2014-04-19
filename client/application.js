@@ -1,5 +1,5 @@
 define(['angular', 'angular-route', 'moment/moment', 'transactions.js'], function (angular) {
-    var app = angular.module("webapp", ['ngRoute','transactions']);
+    var app = angular.module("webapp", ['ngRoute','ui.bootstrap','transactions']);
     app.config(function ($routeProvider) {
         $routeProvider.when("/transactions", ({
             templateUrl: 'transactions.html', controller: 'TransactionsCtrl',
@@ -12,6 +12,13 @@ define(['angular', 'angular-route', 'moment/moment', 'transactions.js'], functio
           redirectTo: '/transactions'
         });
     });
+    app.run(['$rootScope', function($rootScope){
+        $rootScope.$apply($rootScope.appmenuOpened = false);
+        $rootScope.toggleAppMenu = function () {
+            console.log($rootScope.appmenuOpened);
+            $rootScope.appmenuOpened = !$rootScope.appmenuOpened;
+        }
+    }]);
     app.controller("HeaderCtrl", ["$scope", function($scope) {
         $scope.isBarOpen = false;
     }]);
