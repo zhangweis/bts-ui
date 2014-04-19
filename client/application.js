@@ -9,7 +9,7 @@ define(['angular', 'angular-route', 'moment/moment', 'transactions.js'], functio
             templateUrl: 'send.html'
         }))
         .otherwise({
-          redirectTo: '/send'
+          redirectTo: '/transactions'
         });
     });
     app.filter('timeago', function(){
