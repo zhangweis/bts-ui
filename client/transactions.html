@@ -1,0 +1,87 @@
+<div id="view">
+      <div class="row">
+  <div class="col-lg-9 col-lg-offset-1">
+    
+    
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-7 hidden-xs hidden-sm">
+    <h1>Transactions</h1>
+  </div>
+
+  <div class="col-lg-5 text-center" style="height: 120px">
+    <div class="row">
+      <h2><span id="balance">0</span> XTS 
+      </h2>
+      <h5><span id="pendingBalance">0</span> XTS pending</h5>
+    </div>
+    <div class="row">
+      <p><span id="exchangePrice">1 XTS ≈ 0.50 bitBTC</span></p>
+    </div>
+  </div>
+  </div>
+
+
+<div class="row">
+  <div class="col-lg-12">
+    <div id="receivedTransactions"><style>
+.receivedExchangePrice small {
+  margin-left: 5px;
+}
+</style>
+
+<h2>Received</h2>
+
+
+<div class="visible-md visible-lg">
+  <table class="table table-bordered table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Address</th>
+        <th>Amount</th>
+        <th>Confirmations</th>
+        <th>Discovered</th>
+        <th></th>
+    </tr></thead>
+    <tbody>
+      
+        <tr ng-repeat="tx in transactions">
+          <td>{{tx.address}}</td>
+          <td><span class="addExchangePrice">{{tx.amount}} {{tx.type}}</span></td>
+          <td>
+            {{tx.confirmations}}
+
+            
+              <span class="label label-warning pull-right" rel="tooltip" data-toggle="tooltip" title="" data-original-title="Transaction has not yet been confirmed. You cannot safely spend this yet because you cannot be confident it isn't a double spend until it has been confirmed by the blockchain.">Pending (Unconfirmed)</span>
+            
+          </td>
+          <td>
+            {{tx.discoveredWhen | timeago}}
+          </td>
+          <td><a class="btn btn-primary" href="#/tx/details/69d6835ffce3a63c12561d3512a2f6345a4a866d654f76b253cefabc0a633da9">Details</a></td>
+      
+        </tr>
+    </tbody>
+  </table>
+</div>
+
+</div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div id="sentTransactions"><h2>Sent</h2>
+
+
+
+  <h4>No transactions yet.</h4>
+
+
+</div>
+  </div>
+</div>
+</div>
+    </div>
