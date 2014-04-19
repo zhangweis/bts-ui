@@ -1,5 +1,5 @@
 define(['angular', 'angular-route', 'moment/moment', 'transactions.js'], function (angular) {
-    var app = angular.module("webapp", ['ngRoute','ui.bootstrap','transactions']);
+    var app = angular.module("webapp", ['ngRoute','transactions']);
     app.config(function ($routeProvider) {
         $routeProvider.when("/transactions", ({
             templateUrl: 'transactions.html', controller: 'TransactionsCtrl',
