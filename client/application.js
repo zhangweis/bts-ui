@@ -1,4 +1,4 @@
-define(['angular', 'angular-route', 'moment/moment', 'transactions.js'], function (angular) {
+define(['angular', 'angular-route', 'moment', 'transactions.js'], function (angular) {
     var app = angular.module("webapp", ['ngRoute','transactions']);
     app.config(function ($routeProvider) {
         $routeProvider.when("/transactions", ({

@@ -1,11 +1,12 @@
 
 'use strict';
 require.config({
-    baseUrl: "./bower_components/",    
+    baseUrl: "./",    
     paths: {
-        'angular': 'angular/angular',
-        'angular-route': 'angular-route/angular-route',
-	    'application':'../application'
+        'angular': 'bower_components/angular/angular',
+        'angular-route': 'bower_components/angular-route/angular-route',
+        'application':'application',
+        'moment':'bower_components/moment/moment'
     },
     shim: {
         "angular": {
