@@ -1,16 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>The best project ever.</title>
-    <meta name="description" content="The best project ever.">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link href="/favicon.ico" rel="shortcut icon">
-    <link href="/style.css" rel="stylesheet">
-    <script data-main="main.js" src="bower_components/requirejs/require.js"></script>
-  </head>
-  <body>
-    <application id="{{id}}"/>
-  </body>
+<html ng-class='{"appmenu-opened":appmenuOpened}'>
+<head>
+<link rel="stylesheet" type="text/css" charset='UTF-8' href="style.css" />
+<link rel="stylesheet" type="text/css" charset='UTF-8' href="css/all.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title ng-bind='page.title'></title>
+<script type="text/javascript" charset="utf-8" src="js/jquery-1.10.1.min.js" ></script>
+<script type="text/javascript" charset="utf-8" src="js/jquery.jsonrpc.js" ></script>
+<script data-main="main.js" src="bower_components/requirejs/require.js"></script>
+</head>
+<body ontouchstart='' onmouseover="">
+<div ng-click="toggleAppMenu()" class="app-menu-bg"></div>
+<div id="header" style="margin-bottom: 50px" ng-controller="HeaderCtrl">
+    <header class="navbar navbar-inverse navbar-fixed-top" role="banner">
+  <div class="navbar-header">
+    <button class="navbar-toggle" type="button" ng-click="toggleAppMenu()">
+      <span class="sr-only"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a href="#/" class="navbar-brand">Bitshares X</a>
+  </div>
+  <nav ng-class="{false:'collapse navbar-collapse',true:'navbar-collapse'}[appmenuOpened]" class="collapse navbar-collapse" role="navigation" id="navbar-collapse" ng-click="toggleAppMenu()">
+    <ul class="nav navbar-nav">
+        <li><a href="#/transactions"> Transactions</a></li>
+        <li><a href="#/send" > Send</a></li>
+        <li><a href="#/buy"> Buy bitUSD</a></li>
+        <li><a href="#/sell"> Sell bitUSD</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+<!--
+<li><a href="#/account/settings"><strong> zhangweis</strong></a></li>
+-->
+        <li><a href="#/signout"> Signout</a></li>
+      
+    </ul>
+  </nav>
+</header>
+</div>
+
+<div id="container" class="container" style="margin-bottom: 30px">
+<div ng-view></div>
+</div>
+</body>
 </html>

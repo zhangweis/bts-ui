@@ -22,6 +22,24 @@ define(['angular', 'angular-route', 'moment', 'transactions.js'], function (angu
     app.controller("HeaderCtrl", ["$scope", function($scope) {
         $scope.isBarOpen = false;
     }]);
+    app.controller("Transactions.Ctrl", ["$scope","$http", function($scope,$http) {
+        $http.post('/rpc', {
+            jsonrpc:'2.0',
+            method:'openwallet',
+            id:1,
+            params:["i1d8zytQFxMF"]
+        }).finally(function(result){
+            $http.post('/rpc', {
+                jsonrpc:'2.0',
+                method:'getbalance',
+                id:1,
+                params:[]
+            }).then(function(result){
+                $scope.balance = (result.data.result.amount);
+            });
+        });
+        //'uvSJlP9ilyYa'
+    }]);
     app.filter('timeago', function(){
         return function(date){
             return moment(date).fromNow();

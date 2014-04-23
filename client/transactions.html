@@ -1,4 +1,4 @@
-<div id="view">
+<div id="view" ng-controller='Transactions.Ctrl'>
       <div class="row">
   <div class="col-lg-9 col-lg-offset-1">
     
@@ -13,7 +13,7 @@
 
   <div class="col-lg-5 text-center" style="height: 120px">
     <div class="row">
-      <h2><span id="balance">0</span> XTS 
+      <h2><span id="balance" ng-bind="balance">0</span> XTS 
       </h2>
       <h5><span id="pendingBalance">0</span> XTS pending</h5>
     </div>
