@@ -8,6 +8,9 @@ define(['angular', 'angular-route', 'moment', 'transactions.js'], function (angu
         .when("/send", ({
             templateUrl: 'send.html', controller: 'Send.Ctrl'
         }))
+        .when("/receive", ({
+            templateUrl: 'receive.html', controller: 'Receive.Ctrl'
+        }))
         .otherwise({
           redirectTo: '/transactions'
         });
@@ -74,6 +77,19 @@ define(['angular', 'angular-route', 'moment', 'transactions.js'], function (angu
                     });
                 });
         };
+    }]);
+    app.controller("Receive.Ctrl", ["$scope","$q","$http", function($scope,$q,$http) {
+        openWallet($http, $q).then(function(result){
+            $http.post('/rpc', {
+                jsonrpc:'2.0',
+                method:'listrecvaddresses',
+                id:1,
+                params:[]
+            }).then(function(result){
+                $scope.addresses = (result.data.result);
+            });
+        });
+//          $scope.addresses=['addr1','addr2'];
     }]);
     app.controller("Transactions.Ctrl", ["$scope","$q","$http", function($scope,$q,$http) {
         openWallet($http, $q).then(function(result){
