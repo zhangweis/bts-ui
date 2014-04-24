@@ -26,9 +26,15 @@
   background-color: #f6f6f6;
 cursor:pointer;
 }
+.defaultaddress {
+    font-size:2em;
+}
 
 </style>
 
 <div ng-repeat="address in addresses" class="list-item link-effect">
+    <p ng-class="{defaultaddress:!address[1]}">
     {{address[0]}} <span>{{address[1]}}</span>
+    </p>
+    
 </div>
