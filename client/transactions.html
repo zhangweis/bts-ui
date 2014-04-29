@@ -36,11 +36,11 @@
 .list-item {
 }
 .transactions .address {
-    width: 20%;
+    width: 40%;
+    min-width:20em;
 }
 .transactions .amount {
-    width: 40%;
-    min-width:10em;
+    width: 20%;
 }
 .transactions .confirmations {
     width: 10%;
@@ -62,11 +62,11 @@ cursor:pointer;
 <div class="transactions">
     <div ng-repeat="tx in transactions" class="list-item link-effect">
         <div class="list-cell address visible-md visible-lg">
-            <span ng-bind="tx.address" class="ng-binding">Default</span>
+            <span ng-bind="tx.from[0][0]" class="ng-binding">Default</span>
         </div>
         <div class="list-cell amount">
-            <span ng-bind="tx.amount" class="ng-binding">0.1</span>
-            <span ng-bind="tx.type" class="ng-binding">XTS</span>
+            <span ng-bind="tx.delta_balance[0][1]" class="ng-binding">0.1</span>
+            <span ng-bind="tx.delta_balance[0][0]" class="ng-binding">XTS</span>
         </div>
         <div class="list-cell confirmations">
             <span ng-bind="tx.confirmations" class="ng-binding">1</span>

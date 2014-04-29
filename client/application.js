@@ -1,5 +1,5 @@
-define(['angular', 'angular-route', 'moment', 'transactions.js'], function (angular) {
-    var app = angular.module("webapp", ['ngRoute','transactions']);
+define(['angular', 'angular-route', 'moment', 'transactions.js', 'model/wallet'], function (angular) {
+    var app = angular.module("webapp", ['ngRoute','transactions', 'model.wallet']);
     app.config(function ($routeProvider) {
         $routeProvider.when("/transactions", ({
             templateUrl: 'transactions.html', controller: 'TransactionsCtrl',
@@ -25,48 +25,23 @@ define(['angular', 'angular-route', 'moment', 'transactions.js'], function (angu
     app.controller("HeaderCtrl", ["$scope","$q", function($scope,$q) {
         $scope.isBarOpen = false;
     }]);
-    var walletOpened = false;
-    function openWallet($http, $q){
-        var deferred = $q.defer();
-        if (walletOpened)
-            deferred.resolve('');
-        else {
-            $http.post('/rpc', {
-                jsonrpc:'2.0',
-                method:'openwallet',
-                id:1,
-                params:["i1d8zytQFxMF"]
-            }).finally(function(result){
-                    $http.post('/rpc', {
-                        jsonrpc:'2.0',
-                        method:'walletpassphrase',
-                        id:1,
-                        params:["uvSJlP9ilyYa"]
-                    }).then(function() {
-                        $http.post('/rpc', {
-                            jsonrpc:'2.0',
-                            method:'rescan',
-                            id:1,
-                            params:[]}).then(function(){
-                                walletOpened=true;
-                                deferred.resolve('');
-                            });
-                    });
-            });
-        }
-        return deferred.promise;
-    }
-    app.controller("Send.Ctrl", ["$scope","$q","$http", function($scope,$q,$http) {
+    app.controller("Send.Ctrl", ["$scope","wallet","$http", function($scope,wallet,$http) {
         $scope.address="MoLnLbfaE7itqD53snuY5Pw3HVAUD7gYc";
         $scope.amount=10;
         $scope.comment="";
         $scope.send=function(){
-            openWallet($http,$q).then(function(result){
+            wallet.openWallet().then(function(result){
+                $http.post('/rpc', {
+                    jsonrpc:'2.0',
+                    method:'walletpassphrase',
+                    id:1,
+                    params:["uvSJlP9ilyYa",3]
+                }).then(function() {
                     $http.post('/rpc', {
                         jsonrpc:'2.0',
                         method:'sendtoaddress',
                         id:1,
-                        params:[$scope.address, {"amount":Number($scope.amount),"unit":0}, $scope.comment]
+                        params:[$scope.address, Number($scope.amount), $scope.comment]
                     }).then(function(result){
                         $http.post('/rpc', {
                             jsonrpc:'2.0',
@@ -74,12 +49,15 @@ define(['angular', 'angular-route', 'moment', 'transactions.js'], function (angu
                             id:1,
                             params:[]});
                         alert('Sent. Balance should be changed.');
+                    }, function(result){
+                        alert(result.data.error.message)
                     });
                 });
+            });
         };
     }]);
-    app.controller("Receive.Ctrl", ["$scope","$q","$http", function($scope,$q,$http) {
-        openWallet($http, $q).then(function(result){
+    app.controller("Receive.Ctrl", ["$scope","wallet","$http", function($scope,wallet,$http) {
+        wallet.openWallet().then(function(result){
             $http.post('/rpc', {
                 jsonrpc:'2.0',
                 method:'listrecvaddresses',
@@ -90,19 +68,6 @@ define(['angular', 'angular-route', 'moment', 'transactions.js'], function (angu
             });
         });
 //          $scope.addresses=['addr1','addr2'];
-    }]);
-    app.controller("Transactions.Ctrl", ["$scope","$q","$http", function($scope,$q,$http) {
-        openWallet($http, $q).then(function(result){
-            $http.post('/rpc', {
-                jsonrpc:'2.0',
-                method:'getbalance',
-                id:1,
-                params:[]
-            }).then(function(result){
-                $scope.balance = (result.data.result.amount);
-            });
-        });
-        //'uvSJlP9ilyYa'
     }]);
     app.filter('timeago', function(){
         return function(date){
