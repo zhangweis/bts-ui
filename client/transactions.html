@@ -56,8 +56,11 @@ cursor:pointer;
 }
 
 </style>
-
-<h2>Received</h2>
+<div ng-switch="transactionsLoading">
+<div ng-switch-when="true">
+Loading...
+</div>
+<div ng-switch-when="false">
 
 <div class="transactions">
     <div ng-repeat="tx in transactions" class="list-item link-effect">
@@ -76,21 +79,12 @@ cursor:pointer;
         </div>
     </div>
 </div>
-
+</div>
+</div>
 </div>
   </div>
 </div>
 
-<div class="row">
-  <div class="col-lg-12">
-    <div id="sentTransactions"><h2>Sent</h2>
-
-
-
-  <h4>No transactions yet.</h4>
-
-
-</div>
   </div>
 </div>
 </div>

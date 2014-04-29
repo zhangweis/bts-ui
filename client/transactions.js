@@ -1,8 +1,10 @@
 define(['angular', 'angular-route','model/transaction','model/wallet'], function (angular) {
     var module = angular.module("transactions", ['ngRoute','model.transaction','model.wallet']);
     module.controller("TransactionsCtrl",['$scope','transactions',function ($scope,transactions) {
+        $scope.transactionsLoading = true;
         transactions.getTransactions(function(err, data){
             $scope.transactions = data;
+            $scope.transactionsLoading = false;
         });
     }]);
     module.controller("Transactions.Ctrl", ["$scope","wallet","$http", function($scope,wallet,$http) {
