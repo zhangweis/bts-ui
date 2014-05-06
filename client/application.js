@@ -52,6 +52,9 @@ define(['angular', 'angular-route', 'moment', 'transactions.js', 'model/wallet']
                     }, function(result){
                         alert(result.data.error.message)
                     });
+                }, function(result){
+                    //alert(result.data.error.message)
+                    alert('Wrong password to unlock wallet for sending.')
                 });
             });
         };
@@ -60,7 +63,7 @@ define(['angular', 'angular-route', 'moment', 'transactions.js', 'model/wallet']
         wallet.openWallet().then(function(result){
             $http.post('/rpc', {
                 jsonrpc:'2.0',
-                method:'listrecvaddresses',
+                method:'list_receive_addresses',
                 id:1,
                 params:[]
             }).then(function(result){
