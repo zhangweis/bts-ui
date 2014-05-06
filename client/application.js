@@ -1,5 +1,5 @@
-define(['angular', 'angular-route', 'moment', 'transactions.js', 'model/wallet','angular-growl'], function (angular) {
-    var app = angular.module("webapp", ['ngRoute','transactions', 'model.wallet','angular-growl']);
+define(['angular', 'angular-route', 'moment', 'transactions.js', 'model/wallet','angular-growl', './import'], function (angular) {
+    var app = angular.module("webapp", ['ngRoute','transactions', 'model.wallet','angular-growl', 'import']);
     app.config(function ($routeProvider) {
         $routeProvider.when("/transactions", ({
             templateUrl: 'transactions.html', controller: 'TransactionsCtrl',
@@ -33,13 +33,8 @@ define(['angular', 'angular-route', 'moment', 'transactions.js', 'model/wallet',
         $scope.amount=10;
         $scope.comment="";
         $scope.send=function(){
-            wallet.openWallet().then(function(result){
-                $http.post('/rpc', {
-                    jsonrpc:'2.0',
-                    method:'walletpassphrase',
-                    id:1,
-                    params:["uvSJlP9ilyYa",3]
-                }).then(function() {
+            wallet.unlockWallet("uvSJlP9ilyYa")
+                .then(function() {
                     $http.post('/rpc', {
                         jsonrpc:'2.0',
                         method:'sendtoaddress',
@@ -57,9 +52,8 @@ define(['angular', 'angular-route', 'moment', 'transactions.js', 'model/wallet',
                     });
                 }, function(result){
                     //alert(result.data.error.message)
-                    growl.addErrorMessage('Wrong password to unlock wallet for sending.')
+                    growl.addErrorMessage('Wrong password to unlock wallet for sending.'+result)
                 });
-            });
         };
     }]);
     app.controller("Receive.Ctrl", ["$scope","wallet","$http", function($scope,wallet,$http) {

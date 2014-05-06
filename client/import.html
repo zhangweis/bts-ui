@@ -1,0 +1,19 @@
+<h1>Import wallet</h1>
+
+<h2>
+From private key:
+</h2>
+
+Private key:<input ng-model="privateKey"/>
+<br/>
+Label:
+<input ng-model="label"/>
+<h2>
+From btc/pts wallet:
+</h2>
+
+<input type="file" id="wallet"/>
+Password:
+<input type="password" ng-model="walletPassword"/>
+
+<button ng-click="import()">Import</button>
