@@ -9,7 +9,10 @@
 <script data-main="main.js" src="bower_components/requirejs/require.js"></script>
 </head>
 <body ontouchstart='' onmouseover="">
+<div growl></div>
+
 <div ng-click="toggleAppMenu()" class="app-menu-bg"></div>
+
 <div id="header" style="margin-bottom: 50px" ng-controller="HeaderCtrl">
     <header class="navbar navbar-inverse navbar-fixed-top" role="banner">
   <div class="navbar-header">
@@ -21,6 +24,7 @@
     </button>
     <a href="#/" class="navbar-brand">Bitshares X</a>
   </div>
+
   <nav ng-class="{false:'collapse navbar-collapse',true:'navbar-collapse'}[appmenuOpened]" class="collapse navbar-collapse" role="navigation" id="navbar-collapse" ng-click="toggleAppMenu()">
     <ul class="nav navbar-nav">
         <li><a href="#/transactions"> Transactions</a></li>

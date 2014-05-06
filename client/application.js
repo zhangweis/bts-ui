@@ -1,5 +1,5 @@
-define(['angular', 'angular-route', 'moment', 'transactions.js', 'model/wallet'], function (angular) {
-    var app = angular.module("webapp", ['ngRoute','transactions', 'model.wallet']);
+define(['angular', 'angular-route', 'moment', 'transactions.js', 'model/wallet','angular-growl'], function (angular) {
+    var app = angular.module("webapp", ['ngRoute','transactions', 'model.wallet','angular-growl']);
     app.config(function ($routeProvider) {
         $routeProvider.when("/transactions", ({
             templateUrl: 'transactions.html', controller: 'TransactionsCtrl',
@@ -15,6 +15,9 @@ define(['angular', 'angular-route', 'moment', 'transactions.js', 'model/wallet']
           redirectTo: '/transactions'
         });
     });
+    app.config(['growlProvider', function(growlProvider) {
+        growlProvider.globalTimeToLive(5000);
+    }]);
     app.run(['$rootScope', function($rootScope){
         $rootScope.$apply($rootScope.appmenuOpened = false);
         $rootScope.toggleAppMenu = function () {
@@ -25,7 +28,7 @@ define(['angular', 'angular-route', 'moment', 'transactions.js', 'model/wallet']
     app.controller("HeaderCtrl", ["$scope","$q", function($scope,$q) {
         $scope.isBarOpen = false;
     }]);
-    app.controller("Send.Ctrl", ["$scope","wallet","$http", function($scope,wallet,$http) {
+    app.controller("Send.Ctrl", ["$scope","wallet","$http",'growl', function($scope,wallet,$http,growl) {
         $scope.address="MoLnLbfaE7itqD53snuY5Pw3HVAUD7gYc";
         $scope.amount=10;
         $scope.comment="";
@@ -50,11 +53,11 @@ define(['angular', 'angular-route', 'moment', 'transactions.js', 'model/wallet']
                             params:[]});
                         alert('Sent. Balance should be changed.');
                     }, function(result){
-                        alert(result.data.error.message)
+                        growl.addErrorMessage(result.data.error.message)
                     });
                 }, function(result){
                     //alert(result.data.error.message)
-                    alert('Wrong password to unlock wallet for sending.')
+                    growl.addErrorMessage('Wrong password to unlock wallet for sending.')
                 });
             });
         };
