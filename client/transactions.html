@@ -40,13 +40,15 @@
     min-width:20em;
 }
 .transactions .amount {
-    width: 20%;
+    /*width: 20%;*/
+    -webkit-box-flex:1
+    
 }
 .transactions .confirmations {
     width: 10%;
 }
 .transactions .discovered-when {
-    width: 20%;
+    width: 30%;
 }
 .spent .amount{
     color:red;
@@ -82,7 +84,7 @@ Loading...
         <div class="list-cell confirmations">
             <span ng-bind="tx.confirmations" class="ng-binding">1</span>
         </div>
-        <div class="list-cell discovered-when visible-md visible-lg">
+        <div class="list-cell discovered-when">
             <span ng-bind="tx.discoveredWhen | timeago" class="ng-binding">1</span>
         </div>
     </div>
