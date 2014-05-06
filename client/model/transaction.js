@@ -33,6 +33,8 @@ define(['angular','model/wallet'],function(angular){
                                     angular.forEach(result.data.result, function(tx){
                                         var item = tx[1];
                                         item.discoveredWhen = new Date()-2000000;
+                                        item.received = item.delta_balance[0][1]>0;
+                                        item.delta = Math.abs(item.delta_balance[0][1]);
                                         ret.push(item);
                                     })
                                     console.log(result.data.result);
